@@ -5,7 +5,7 @@ cls
 
 :menu
 echo ========================================
-echo        PROJECT MITAI - ALPHA 1.0
+echo        PROJECT MITAI - ALPHA v0.2.0
 echo ========================================
 echo.
 set /p choice="Do you want to start the project? (Y/N): "
