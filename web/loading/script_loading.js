@@ -1,10 +1,10 @@
 const progressFill = document.getElementById('progress-fill');
 const detailsText = document.getElementById('loading-details');
 const statusText = document.getElementById('status-text');
-const notice = document.getElementById('notice-unfinished');
+const notice = document.getElementById('notice-finished');
 const music = document.getElementById('loadingMusic');
-const sndNotify = document.getElementById('sndNotify');
-const sndAccept = document.getElementById('sndAccept');
+const notify = document.getElementById('sndNotify');
+const notifAccept = document.getElementById('sndNotifAccept');
 
 const loadingSteps = [
     "Decrypting neural links...",
@@ -12,7 +12,7 @@ const loadingSteps = [
     "Loading textures and assets...",
     "Compiling shader cache...",
     "Finalizing environment...",
-    "ERROR: Section not found!"
+    "Loading successful!"
 ];
 
 let progress = 0;
@@ -32,9 +32,9 @@ function playSfx(audioElement) {
 }
 
 function handleReturn() {
-    playSfx(sndAccept);
+    playSfx(notifAccept);
     setTimeout(() => {
-        window.location.href = '../title/title.html';
+        window.location.href = '../mitai_pod/mitai_pod.html';
     }, 400);
 }
 
@@ -63,7 +63,7 @@ function simulateLoading() {
         setTimeout(() => {
             document.getElementById('loading-container').style.display = 'none';
             notice.style.display = 'flex';
-            playSfx(sndNotify);
+            playSfx(notify);
         }, 1000);
     }
 }
