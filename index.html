@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Project MITAI Launcher</title>
+    <script src="core_init.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -23,7 +24,6 @@
             width: 90%;
             max-width: 600px;
             transition: opacity 0.5s;
-            /* Zapewnia, że przy dużej ilości logów nie wyjdą poza ekran */
             max-height: 80vh;
             display: flex;
             flex-direction: column;
@@ -149,7 +149,7 @@
 
     <script>
         const logs = [
-            "> M.I.T.A.I. OS v0.1.1-alpha...",
+            "> M.I.T.A.I. OS v0.2.0-alpha...",
             "> MEMORY CHECK: OK",
             "> INITIALIZING BOOT SEQUENCE...",
             "> CHECKING NEURAL NETWORK...",
@@ -183,7 +183,6 @@
             launchBtn.disabled = true;
 
             try {
-                // Szukamy title.html zamiast index_title.html
                 const response = await fetch('web/title/title.html', { method: 'HEAD' });
 
                 if (response.ok) {
