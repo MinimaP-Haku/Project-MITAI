@@ -1,6 +1,6 @@
 # Project MITAI (三田井) - Alpha Build
 
-![Version](https://img.shields.io/badge/Version-0.1.1--Alpha-red)
+![Version](https://img.shields.io/badge/Version-0.2.0--Alpha-red)
 ![Status](https://img.shields.io/badge/Status-In--Development-cyan)
 
 **Project MITAI** is an experimental web project currently in the early Alpha phase. It focuses on unique UI/UX design, interactive elements, and a stylized audiovisual experience.
@@ -34,5 +34,5 @@ Project_MITAI/
 │   └── loading/            # Loading screen (loading.html, css, js)
 ├── index.html              # Main Launcher (Mobile/Web)
 ├── project_mitai.cmd       # Windows Launcher
-├── error.vbs               # System Error Script
+├── errors/                 # System Errors Script
 └── README.md               # Project documentation
