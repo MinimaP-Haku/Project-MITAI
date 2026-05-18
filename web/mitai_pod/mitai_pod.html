@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project MITAI - MITAI Pod</title>
+    <script src="../../core_init.js"></script>
+    <link rel="stylesheet" href="style_mitai_pod.css">
+</head>
+<body>
+    <div id="pod-interface">
+        <div class="sidebar-left">
+            <div class="character-container">
+                <div id="char-name-display" class="char-name">HATSUNE MIKU</div>
+                <div class="character-display">
+                    <img id="active-char" src="../../assets/textures/ui/customize/characters/hatsune_miku.png" alt="Character">
+                </div>
+            </div>
+            <button class="cyber-button customize-btn" onclick="handleCustomizeClick()">CUSTOMIZE</button>
+        </div>
+        <h1 class="pod-title">MITAI POD v0.2.0-ALPHA</h1>
+    </div>
+
+    <div id="modal-save" class="full-modal">
+        <div class="modal-box">
+            <h1>DATA RECOVERY</h1>
+            <p>System is ready. Do you want to continue your progress or initialize a new link?</p>
+            <div class="button-group">
+                <button onclick="document.getElementById('file-input').click()" class="cyber-button">IMPORT SAVE FILE</button>
+                <button onclick="startNewProject()" class="cyber-button secondary">START NEW PROJECT</button>
+            </div>
+            <input type="file" id="file-input" style="display: none;" accept=".mitai_save" onchange="handleFileSelect(event)">
+        </div>
+    </div>
+
+<div id="modal-customize-warn" class="full-modal" style="display: none;">
+    <div class="modal-box warning">
+        <h1>SYSTEM ACCESS</h1>
+        <p>To enter Customize mode, the system will <span class="highlight">generate a recovery point</span>. You must keep this file to maintain your changes.</p>
+        <p>Proceed with backup and module selection?</p>
+        <div class="button-group">
+            <button onclick="saveAndProceedToCustomize()" class="cyber-button">PROCEED & SAVE</button>
+            <button onclick="closeCustomizeWarn()" class="cyber-button secondary">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+    <div id="modal-ui" class="full-modal" style="display: none;">
+        <div class="modal-box">
+            <h1>SYSTEM CONFIG</h1>
+            <p>Default interface: <span class="highlight">MITAI Classic UI</span> is active.</p>
+            <button onclick="closeModals()" class="cyber-button">ENTER POD</button>
+        </div>
+    </div>
+
+    <audio id="sndNotify" src="../../assets/sounds/ui/notification/notification_received_01.wav"></audio>
+    <audio id="sndNotifAccept" src="../../assets/sounds/ui/notification/notification_accept_01.wav"></audio>
+    <audio id="sndNotifDecline" src="../../assets/sounds/ui/notification/notification_decline_01.wav"></audio>
+    <audio id="sndClick" src="../../assets/sounds/ui/click.wav"></audio>
+
+    <script src="script_mitai_pod.js"></script>
+</body>
+</html>

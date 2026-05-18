@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITAI KIT - Customize</title>
+    <link rel="stylesheet" href="style_customize.css">
+    <script src="../../core_init.js"></script>
+</head>
+<body>
+
+    <div id="startup-lock" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <p>CRITICAL: LOAD YOUR PROGRESS FILE TO START CUSTOMIZING</p>
+            <input type="file" id="load-save-input" accept=".mitai_save" style="display: none;" onchange="handleStartupLoad(event)">
+            <button class="save-btn" onclick="document.getElementById('load-save-input').click()">SELECT .MITAI_SAVE FILE</button>
+            <button class="cancel-btn" onclick="exitToPod(event)" style="margin-top: 10px;">BACK TO POD</button>
+        </div>
+    </div>
+
+    <div id="customize-screen">
+        <div class="module-selector">
+            <div class="icon-slot" onclick="changeCharacter('hatsune_miku')">
+                <img src="../../assets/textures/ui/customize/icons/classic.png">
+                <span>Hatsune Miku</span>
+            </div>
+            <div class="icon-slot" onclick="changeCharacter('kasane_teto')">
+                <img src="../../assets/textures/ui/customize/icons/classic.png">
+                <span>Kasane Teto</span>
+            </div>
+        </div>
+
+        <div class="character-area">
+            <div id="char-name-display" class="char-name">STATION CONNECTED</div>
+            <div class="character-preview-box">
+                <img id="preview-img" src="../../assets/textures/ui/customize/characters/hatsune_miku.png">
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="cyber-btn" onclick="showSaveConfirmation()">ACCEPT</button>
+            <button class="cyber-btn secondary" onclick="handleMainCancel()">CANCEL</button>
+        </div>
+    </div>
+
+    <div id="save-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p>YOU MUST SAVE YOUR PROGRESS TO CONTINUE</p>
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="executeSaveAndExit()">SAVE & EXIT</button>
+                <button class="cancel-btn" onclick="closeSaveModal()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script_customize.js"></script>
+</body>
+</html>

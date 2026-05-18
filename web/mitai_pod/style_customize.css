@@ -1,0 +1,227 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: #F90029;
+    background-image: url('../../assets/textures/backgrounds/mitai_pod/mitai_pod_background.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+}
+
+#customize-screen {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding: 2vh;
+}
+
+.character-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vh;
+    height: 90%;
+    justify-content: center;
+}
+
+.char-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 2.5vh;
+    text-transform: uppercase;
+    text-shadow: 0 0 1vh #00ffff;
+    text-align: center;
+}
+
+.character-preview-box {
+    width: 35vh;
+    height: 55vh;
+    max-width: 70vw;
+    border: 0.4vh solid #00ffff;
+    background: rgba(0, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 2vh rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.character-preview-box img {
+    max-height: 95%;
+    max-width: 95%;
+    object-fit: contain;
+}
+
+.module-selector, .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.icon-slot {
+    width: 14vh;
+    border: 0.2vh solid #00ffcc;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1vh;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon-slot img { width: 7vh; height: 7vh; }
+.icon-slot span { color: #00ffcc; display: block; font-size: 1.2vh; margin-top: 0.5vh; }
+
+.cyber-btn {
+    width: 18vh;
+    padding: 1.5vh;
+    background: #000;
+    border: 0.3vh solid #00ffcc;
+    color: #00ffcc;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.6vh;
+}
+
+.cyber-btn.secondary { border-color: #ff0055; color: #ff0055; }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex; /* Będzie zmieniane przez JS na none/flex */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #0a0a0a;
+    border: 0.4vh solid #ff00ff;
+    padding: 5vh;
+    text-align: center;
+    box-shadow: 0 0 4vh rgba(255, 0, 255, 0.4);
+    min-width: 300px;
+}
+
+.modal-content p {
+    color: #ffffff;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-bottom: 3vh;
+    letter-spacing: 1px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 2vh;
+    justify-content: center;
+}
+
+.save-btn {
+    background: #ff00ff;
+    color: #000;
+    border: none;
+    padding: 1.5vh 3vh;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background: #ffffff;
+    box-shadow: 0 0 2vh #ffffff;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: 0.3vh solid #ff0055;
+    color: #ff0055;
+    padding: 1.5vh 3vh;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #ff0055;
+    color: #000;
+}
+
+.click-effect-classic {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    width: 640px;
+    height: 640px;
+    background-image: url('../../assets/textures/ui/click_effect/classic/click_effect_sprite.png');
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%) scale(0.15);
+    animation: clickPlay 0.5s steps(1) forwards;
+}
+
+@keyframes clickPlay {
+    0% { background-position: -1px -1px; }
+    8.3% { background-position: -643px -1px; }
+    16.6% { background-position: -1285px -1px; }
+    25% { background-position: -1927px -1px; }
+    33.3% { background-position: -1px -643px; }
+    41.6% { background-position: -643px -643px; }
+    50% { background-position: -1285px -643px; }
+    58.3% { background-position: -1927px -643px; }
+    66.6% { background-position: -1px -1285px; }
+    75% { background-position: -643px -1285px; }
+    83.3% { background-position: -1285px -1285px; }
+    91.6% { background-position: -1927px -1285px; }
+    100% { background-position: -1927px -1285px; opacity: 0; }
+}
+
+@media screen and (orientation: portrait) {
+    #customize-screen {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 5vh;
+        overflow-y: auto;
+    }
+
+    .character-area {
+        height: auto;
+        margin-bottom: 3vh;
+    }
+
+    .character-preview-box {
+        width: 80vw;
+        height: 40vh; /* Zmniejszona ramka w pionie */
+    }
+
+    .module-selector {
+        flex-direction: row;
+        margin-bottom: 3vh;
+    }
+
+    .controls {
+        flex-direction: row;
+        padding-bottom: 5vh;
+    }
+
+    .cyber-btn, .icon-slot {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .char-name { font-size: 2vh; }
+    .character-preview-box { height: 35vh; width: 25vh; }
+    .icon-slot img { width: 5vh; height: 5vh; }
+}

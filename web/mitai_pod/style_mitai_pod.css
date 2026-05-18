@@ -1,0 +1,220 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #050505;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+}
+
+#pod-interface {
+    width: 100vw;
+    height: 100dvh;
+    background-color: #E20030;
+    background-image: url('../../assets/textures/backgrounds/mitai_pod/mitai_pod_background.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 2vh 4vh;
+    position: relative;
+}
+
+.sidebar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    z-index: 10;
+    height: fit-content;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1.5vh;
+    border-radius: 1vh;
+    margin-left: 10vw;
+}
+
+.char-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 2.2vh;
+    margin-bottom: 0.5vh;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    text-shadow: 
+        -1px -1px 0 #00ffff,  
+         1px -1px 0 #00ffff,
+        -1px  1px 0 #00ffff,
+         1px  1px 0 #00ffff,
+         0 0 1vh #00ffff;
+}
+
+.character-display {
+    width: 25vh;
+    height: 40vh;
+    border: 0.4vh solid #ff00ff;
+    background: rgba(255, 0, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 0 1.5vh rgba(255, 0, 255, 0.3);
+}
+
+.character-display img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+.customize-btn {
+    width: 100%;
+    border: 0.2vh solid #ff00ff !important;
+    background: rgba(255, 0, 255, 0.1);
+    color: #ff00ff !important;
+    font-weight: bold;
+    font-size: 1.8vh;
+    padding: 1vh 0;
+    margin-top: 1vh;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.customize-btn:hover {
+    background: #ff00ff !important;
+    color: #000 !important;
+}
+
+.pod-title {
+    position: absolute;
+    right: 4vh;
+    bottom: 4vh;
+    font-size: 2.5vh;
+    letter-spacing: 0.3vh;
+    opacity: 0.5;
+    text-align: right;
+    pointer-events: none;
+    color: #ffffff;
+}
+
+.full-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-box {
+    background: #0a0a0a;
+    border: 0.2vh solid #00ffcc;
+    padding: 4vh;
+    text-align: center;
+}
+
+.cyber-button {
+    background: transparent;
+    color: #00ffcc;
+    border: 0.2vh solid #00ffcc;
+    padding: 1vh 2vh;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.8vh;
+}
+
+.highlight {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.button-group {
+    display: flex;
+    gap: 2vh;
+    justify-content: center;
+    margin-top: 3vh;
+}
+
+.modal-box.warning {
+    border-color: #ff0055;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+}
+
+.cyber-button.secondary {
+    border-color: #ff0055;
+    color: #ff0055;
+}
+
+.cyber-button.secondary:hover {
+    background: rgba(255, 0, 85, 0.2);
+}
+
+.character-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.click-effect-classic {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    width: 640px;
+    height: 640px;
+    background-image: url('../../assets/textures/ui/click_effect/classic/click_effect_sprite.png');
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%) scale(0.15);
+    animation: clickPlay 0.5s steps(1) forwards;
+}
+
+@keyframes clickPlay {
+    0% { background-position: -1px -1px; }
+    8.3% { background-position: -643px -1px; }
+    16.6% { background-position: -1285px -1px; }
+    25% { background-position: -1927px -1px; }
+    33.3% { background-position: -1px -643px; }
+    41.6% { background-position: -643px -643px; }
+    50% { background-position: -1285px -643px; }
+    58.3% { background-position: -1927px -643px; }
+    66.6% { background-position: -1px -1285px; }
+    75% { background-position: -643px -1285px; }
+    83.3% { background-position: -1285px -1285px; }
+    91.6% { background-position: -1927px -1285px; }
+    100% { background-position: -1927px -1285px; opacity: 0; }
+}
+
+@media screen and (orientation: portrait) {
+    #pod-interface {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .sidebar-left {
+        margin-left: 0;
+        transform: scale(1.1);
+    }
+    .pod-title {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin-top: 5vh;
+        text-align: center;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .sidebar-left {
+        transform: scale(1.1);
+        margin-left: 5vw;
+    }
+}
