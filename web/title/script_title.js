@@ -2,7 +2,7 @@ const noticeAlpha = document.getElementById('notice-alpha');
 const noticeSave = document.getElementById('notice-save');
 const playBtn = document.getElementById('playBtn');
 const music = document.getElementById('bgMusic');
-const sfx = document.getElementById('sndAccept');
+const notifAccept = document.getElementById('sndNotifAccept');
 const voices = [
     "teto_v1", "luka_v2", "luka_v1", "rin", "chis-a", "miku_v2", 
     "rei", "yuka", "momo", "tei", "haku", "reito", "miku_v1", 
@@ -10,16 +10,17 @@ const voices = [
 ];
 
 const introVoice = document.getElementById('introVoice');
+const click = document.getElementById('sndClick');
 
-function playSfx() {
-    if (sfx) {
+function playnotifAccept() {
+    if (notifAccept) {
         if (music) {
             music.volume = 0.15; 
         }
         
-        sfx.currentTime = 0;
-        sfx.volume = 1.0; 
-        sfx.play().catch(() => {});
+        notifAccept.currentTime = 0;
+        notifAccept.volume = 1.0; 
+        notifAccept.play().catch(() => {});
 
         setTimeout(() => {
             if (music && noticeSave.style.display !== 'none') {
@@ -38,15 +39,23 @@ function playRandomIntroVoice() {
     }
 }
 
+function playclick() {
+    if (click) {
+        click.currentTime = 0;
+        click.volume = 0.5;
+        click.play().catch(() => {});
+    }
+}
+
 noticeAlpha.addEventListener('click', () => {
-    playSfx();
+    playnotifAccept();
     noticeAlpha.style.display = 'none';
     noticeSave.style.display = 'flex';
 
 });
 
 noticeSave.addEventListener('click', () => {
-    playSfx();
+    playnotifAccept();
     noticeSave.style.display = 'none';
     music.volume = 0.4; 
     music.play().catch(e => console.log("Audio blocked"));
@@ -55,7 +64,7 @@ noticeSave.addEventListener('click', () => {
 });
 
 playBtn.addEventListener('click', () => {
-    playSfx();
+    playclick();
     if (music) {
         let fadeOut = setInterval(() => {
             if (music.volume > 0.05) {
