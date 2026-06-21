@@ -57,14 +57,14 @@ function handleFileSelect(event) {
             if (saveData.character) {
                 currentCharacter = saveData.character;
                 
+                playSfx(notifAccept);
+                playPodMusic();
+                nextModal();
+                
                 setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        updateCharacterDisplay(currentCharacter);
-                    });
-                }, 200);
+                    updateCharacterDisplay(currentCharacter);
+                }, 50);
             }
-            playSfx(notifAccept);
-            setTimeout(nextModal, 500);
         },
         (error) => {
             playSfx(notifDecline);
