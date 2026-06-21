@@ -1,5 +1,5 @@
 // MITAI Save File Management
-const VERSION_KEY = "MITAI_V0.2.0";
+const VERSION_KEY = "MITAI_V0.2.x";
 
 /**
  * Decrypt save file data
