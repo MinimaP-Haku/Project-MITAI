@@ -85,7 +85,7 @@ function handleFileSelect(event) {
         },
         (error) => {
             playSfx(notifDecline);
-            alert("FILE ERROR: " + error);
+            alert("DECRYPTION ERROR: " + error);
         }
     );
 }
