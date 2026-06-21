@@ -33,6 +33,7 @@ function playSfx(audioElement) {
 
 function handleReturn() {
     playSfx(notifAccept);
+    if (music) music.pause();
     setTimeout(() => {
         window.location.href = '../mitai_pod/mitai_pod.html';
     }, 400);

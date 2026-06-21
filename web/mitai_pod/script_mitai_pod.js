@@ -2,6 +2,7 @@ const notify = document.getElementById('sndNotify');
 const notifAccept = document.getElementById('sndNotifAccept');
 const notifDecline = document.getElementById('sndNotifDecline');
 const click = document.getElementById('sndClick');
+const podMusic = document.getElementById('podMusic');
 
 const modalSave = document.getElementById('modal-save');
 const modalUI = document.getElementById('modal-ui');
@@ -14,6 +15,20 @@ function playSfx(audio) {
     if (audio) {
         audio.currentTime = 0;
         audio.play().catch(() => {});
+    }
+}
+
+function playPodMusic() {
+    if (podMusic) {
+        podMusic.volume = 0.3;
+        podMusic.play().catch(() => {});
+    }
+}
+
+function stopPodMusic() {
+    if (podMusic) {
+        podMusic.pause();
+        podMusic.currentTime = 0;
     }
 }
 
@@ -133,6 +148,7 @@ function saveAndProceedToCustomize() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    stopPodMusic();
     setTimeout(() => { window.location.href = 'customize.html'; }, 1000);
 }
 
@@ -167,5 +183,8 @@ document.addEventListener('click', (e) => {
 });
 
 window.onload = () => {
-    setTimeout(() => playSfx(notify), 300);
+    setTimeout(() => {
+        playSfx(notify);
+        playPodMusic();
+    }, 300);
 };
