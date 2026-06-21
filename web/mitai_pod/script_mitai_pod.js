@@ -9,7 +9,6 @@ const modalUI = document.getElementById('modal-ui');
 const modalWarn = document.getElementById('modal-customize-warn');
 
 let currentCharacter = "hatsune_miku";
-const VERSION_KEY = "MITAI_V0.2.0"; 
 
 function playSfx(audio) {
     if (audio) {
@@ -30,27 +29,6 @@ function stopPodMusic() {
         podMusic.pause();
         podMusic.currentTime = 0;
     }
-}
-
-function decryptSave(encryptedData) {
-    let decrypted = "";
-    for (let i = 0; i < encryptedData.length; i++) {
-        let charCode = encryptedData.charCodeAt(i) - 10;
-        let keyChar = VERSION_KEY.charCodeAt(i % VERSION_KEY.length);
-        decrypted += String.fromCharCode(charCode ^ keyChar);
-    }
-    return decrypted;
-}
-
-function encryptSave(content) {
-    let encrypted = "";
-    const strContent = JSON.stringify(content);
-    for (let i = 0; i < strContent.length; i++) {
-        let keyChar = VERSION_KEY.charCodeAt(i % VERSION_KEY.length);
-        let charCode = strContent.charCodeAt(i) ^ keyChar;
-        encrypted += String.fromCharCode(charCode + 10);
-    }
-    return encrypted;
 }
 
 function updateCharacterDisplay(char) {
@@ -90,34 +68,26 @@ function updateCharacterDisplay(char) {
 
 function handleFileSelect(event) {
     const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const rawContent = e.target.result;
-            const decryptedContent = decryptSave(rawContent);
-            const saveData = JSON.parse(decryptedContent);
-
-            if (saveData.project_mitai) {
-                if (saveData.character) {
-                    currentCharacter = saveData.character;
-                    
-                    setTimeout(() => {
-                        requestAnimationFrame(() => {
-                            updateCharacterDisplay(currentCharacter);
-                        });
-                    }, 200);
-                }
-                playSfx(notifAccept);
-                setTimeout(nextModal, 500);
+    loadSaveFile(
+        file,
+        (saveData) => {
+            if (saveData.character) {
+                currentCharacter = saveData.character;
+                
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        updateCharacterDisplay(currentCharacter);
+                    });
+                }, 200);
             }
-        } catch (err) {
+            playSfx(notifAccept);
+            setTimeout(nextModal, 500);
+        },
+        (error) => {
             playSfx(notifDecline);
-            alert("FILE ERROR");
+            alert("FILE ERROR: " + error);
         }
-    };
-    reader.readAsText(file);
+    );
 }
 
 function handleCustomizeClick() {
@@ -133,21 +103,8 @@ function closeCustomizeWarn() {
 
 function saveAndProceedToCustomize() {
     playSfx(notifAccept);
-    const saveData = {
-        project_mitai: true,
-        character: currentCharacter,
-        version: VERSION_KEY,
-        timestamp: Date.now()
-    };
-    const encrypted = encryptSave(saveData);
-    const blob = new Blob([encrypted], { type: 'application/octet-stream' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'backup_progress.mitai_save';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const saveData = createSaveData(currentCharacter);
+    downloadSaveFile(saveData, 'backup_progress.mitai_save');
     stopPodMusic();
     setTimeout(() => { window.location.href = 'customize.html'; }, 1000);
 }

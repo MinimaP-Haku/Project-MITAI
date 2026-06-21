@@ -1,7 +1,6 @@
 const soundsDir = '../../assets/sounds/ui/mitakit/customize/';
 const notifDir = '../../assets/sounds/ui/notification/';
 const uiDir = '../../assets/sounds/ui/mitai_pod/';
-const VERSION_KEY = "MITAI_V0.2.0";
 
 const audioCache = {
     step01: new Audio(soundsDir + 'change_module_01.wav'),
@@ -21,62 +20,34 @@ Object.values(audioCache).forEach(audio => {
 
 let selectedCharacter = 'hatsune_miku';
 
-function decryptSave(encryptedData) {
-    let decrypted = "";
-    for (let i = 0; i < encryptedData.length; i++) {
-        let charCode = encryptedData.charCodeAt(i) - 10;
-        let keyChar = VERSION_KEY.charCodeAt(i % VERSION_KEY.length);
-        decrypted += String.fromCharCode(charCode ^ keyChar);
-    }
-    return decrypted;
-}
-
-function encryptSave(content) {
-    let encrypted = "";
-    const strContent = JSON.stringify(content);
-    for (let i = 0; i < strContent.length; i++) {
-        let keyChar = VERSION_KEY.charCodeAt(i % VERSION_KEY.length);
-        let charCode = strContent.charCodeAt(i) ^ keyChar;
-        encrypted += String.fromCharCode(charCode + 10);
-    }
-    return encrypted;
-}
-
 function handleStartupLoad(event) {
     const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const decrypted = decryptSave(e.target.result);
-            const saveData = JSON.parse(decrypted);
-            if (saveData.project_mitai) {
-                audioCache.notifAccept.currentTime = 0;
-                audioCache.notifAccept.play().catch(() => {});
+    loadSaveFile(
+        file,
+        (saveData) => {
+            audioCache.notifAccept.currentTime = 0;
+            audioCache.notifAccept.play().catch(() => {});
+            
+            document.getElementById('startup-lock').style.display = 'none';
+            if (saveData.character) {
+                selectedCharacter = saveData.character;
                 
-                document.getElementById('startup-lock').style.display = 'none';
-                if (saveData.character) {
-                    selectedCharacter = saveData.character;
-                    
-                    setTimeout(() => {
-                        requestAnimationFrame(() => {
-                            const img = document.getElementById('preview-img');
-                            const name = document.getElementById('char-name-display');
-                            if (img) img.src = `../../assets/textures/ui/customize/characters/${selectedCharacter}.png?v=${Date.now()}`;
-                            if (name) name.innerText = selectedCharacter.replace('_', ' ').toUpperCase();
-                        });
-                    }, 200);
-                }
-            } else {
-                throw new Error();
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        const img = document.getElementById('preview-img');
+                        const name = document.getElementById('char-name-display');
+                        if (img) img.src = `../../assets/textures/ui/customize/characters/${selectedCharacter}.png?v=${Date.now()}`;
+                        if (name) name.innerText = selectedCharacter.replace('_', ' ').toUpperCase();
+                    });
+                }, 200);
             }
-        } catch (err) { 
+        },
+        (error) => {
             audioCache.notifCancel.currentTime = 0;
             audioCache.notifCancel.play().catch(() => {});
-            alert("DECRYPTION ERROR: File corrupted."); 
+            alert("DECRYPTION ERROR: " + error);
         }
-    };
-    reader.readAsText(file);
+    );
 }
 
 function changeCharacter(char) {
@@ -145,21 +116,8 @@ function executeSaveAndExit() {
     audioCache.notifAccept.currentTime = 0;
     audioCache.notifAccept.play().catch(() => {});
 
-    const saveData = { 
-        project_mitai: true, 
-        character: selectedCharacter, 
-        version: VERSION_KEY,
-        timestamp: Date.now()
-    };
-    const encrypted = encryptSave(saveData);
-    const blob = new Blob([encrypted], { type: 'application/octet-stream' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'progress.mitai_save';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const saveData = createSaveData(selectedCharacter);
+    downloadSaveFile(saveData, 'progress.mitai_save');
 
     setTimeout(() => { window.location.href = 'mitai_pod.html'; }, 1000);
 }
