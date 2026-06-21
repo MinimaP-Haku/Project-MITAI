@@ -37,26 +37,11 @@ function updateCharacterDisplay(char) {
     
     if (charImg) {
         const time = Date.now();
-        const paths = [
-            `../../assets/textures/ui/customize/characters/${char}.png?v=${time}`,
-        ];
-
-        let currentPathIndex = 0;
-
-        const tryLoad = () => {
-            if (currentPathIndex < paths.length) {
-                requestAnimationFrame(() => {
-                    charImg.src = paths[currentPathIndex];
-                });
-                currentPathIndex++;
-            }
-        };
-
-        charImg.onerror = function() {
-            tryLoad();
-        };
-
-        tryLoad();
+        requestAnimationFrame(() => {
+            charImg.src = `../../assets/textures/ui/customize/characters/${char}.png?v=${time}`;
+        });
+        
+        charImg.onerror = null; 
     }
     
     if (charName) {
