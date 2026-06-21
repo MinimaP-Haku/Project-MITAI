@@ -37,20 +37,3 @@ Project_MITAI/
 ├── errors/                 # System Errors Script
 └── README.md               # Project documentation* For the best experience, use the **"Add to Home Screen"** option in your browser menu to run it in full-screen mode.
 * The launcher will verify module integrity and ensure a safe boot sequence.
-
-## 🚀 Quick Start
-1. Open `index.html` in any web browser.
-2. Click "INITIALIZE PROJECT" to start the boot sequence.
-3. If files are missing, the system will trigger a simulated VBS error.
-
-## 📁 File Structure
-```text
-Project_MITAI/
-├── assets/                 # Music, textures, and graphic assets
-├── web/
-│   ├── title/              # Title screen (title.html, css, js)
-│   └── loading/            # Loading screen (loading.html, css, js)
-├── index.html              # Main Launcher (Mobile/Web)
-├── project_mitai.cmd       # Windows Launcher
-├── errors/                 # System Errors Script
-└── README.md               # Project documentation
