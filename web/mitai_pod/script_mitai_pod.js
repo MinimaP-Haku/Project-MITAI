@@ -39,8 +39,6 @@ function updateCharacterDisplay(char) {
         const time = Date.now();
         const paths = [
             `../../assets/textures/ui/customize/characters/${char}.png?v=${time}`,
-            `../assets/textures/ui/customize/characters/${char}.png?v=${time}`,
-            `assets/textures/ui/customize/characters/${char}.png?v=${time}`
         ];
 
         let currentPathIndex = 0;
@@ -111,6 +109,8 @@ function saveAndProceedToCustomize() {
 
 function startNewProject() {
     playSfx(notifDecline);
+    currentCharacter = "hatsune_miku";
+    updateCharacterDisplay(currentCharacter);
     setTimeout(nextModal, 500);
 }
 
