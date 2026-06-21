@@ -92,7 +92,7 @@ function loadSaveFile(file, onSuccess, onError) {
 function createSaveData(character) {
     return {
         project_mitai: true,
-        character: currentCharacter,
+        character: character,
         version: VERSION_KEY,
         timestamp: Date.now()
     };
